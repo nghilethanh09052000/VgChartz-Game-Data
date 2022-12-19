@@ -1,0 +1,38 @@
+'49': <ref *50> {
+    type: 'tag',
+    name: 'tr',
+    attribs: {
+      style: 'background-image:url(../imgs/chartBar_large.gif); height:70px'
+    },
+    children: [
+      [Object], [Object], [Object],
+      [Object], [Object], [Object],
+      [Object], [Object], [Object],
+      [Object], [Object], [Object],
+      [Object], [Object], [Object],
+      [Object], [Object], [Object],
+      [Object], [Object], [Object],
+      [Object], [Object], [Object],
+      [Object], [Object], [Object],
+      [Object], [Object], [Object],
+      [Object], [Object], [Object],
+      [Object]
+    ],
+    next: {
+      type: 'tag',
+      name: 'tr',
+      attribs: [Object],
+      children: [Array],
+      next: [Object],
+      prev: [Circular *50],
+      parent: [Object]
+    },
+    prev: <ref *49> {
+      type: 'tag',
+      name: 'tr',
+      attribs: [Object],
+      children: [Array],
+      next: [Circular *50],
+      prev: [Object],
+      parent: [Object]
+    },
