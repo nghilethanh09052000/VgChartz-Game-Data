@@ -6,49 +6,45 @@ class GamesSpider(scrapy.Spider):
     allowed_domains = ['www.vgchartz.com']
 
     def createUrl(n):
-        return f"https://www.vgchartz.com/games/games.php?page={n}&order=Sales&ownership=Both&direction=DESC&showtotalsales={n}&shownasales={n}&showpalsales={n}&showjapansales={n}&showothersales={n}&showpublisher={n}&showdeveloper={n}&showreleasedate={n}&showlastupdate={n}&showvgchartzscore={n}&showcriticscore={n}&showuserscore={n}&showshipped={n}/"
+        return f"http://www.vgchartz.com/games/games.php?page={n}&order=Sales&ownership=Both&direction=DESC&showtotalsales={n}&shownasales={n}&showpalsales={n}&showjapansales={n}&showothersales={n}&showpublisher={n}&showdeveloper={n}&showreleasedate={n}&showlastupdate={n}&showvgchartzscore={n}&showcriticscore={n}&showuserscore={n}&showshipped={n}/"
     
-    page_list = list(range(1, 3))
+    page_list = list(range(1, 1250))
     start_urls = map(createUrl,page_list)
 
     def parse(self, response):
-        rows = response.xpath('//*[@id="generalBody"]/table[1]')
-        # for row in rows:
-        #     pos = row.xpath('//td[1]/text()').get()
-        #     print(pos)
-            # gameName = game.xpath("//*[@id='generalBody']/table[1]/tbody/tr[4]/td[3]/a").get()
-            # console = game.xpath('//*[@id="generalBody"]/table[1]/tbody/tr[4]/td[4]/img').get()
-            # publisher = game.xpath('//*[@id="generalBody"]/table[1]/tbody/tr[4]/td[5]').get()
-            # totalShipped = game.xpath("//*[@id='generalBody']/table[1]/tbody/tr[4]/td[1]")
-            # totalSales = game.xpath("//*[@id='generalBody']/table[1]/tbody/tr[4]/td[1]")
-            # naSales = game.xpath("//*[@id='generalBody']/table[1]/tbody/tr[4]/td[1]")
-            # palSales = game.xpath("//*[@id='generalBody']/table[1]/tbody/tr[4]/td[1]")
-            # jpSales = game.xpath("//*[@id='generalBody']/table[1]/tbody/tr[4]/td[1]")
-            # otherSales = game.xpath("//*[@id='generalBody']/table[1]/tbody/tr[4]/td[1]")
-            # releaseDate = game.xpath("//*[@id='generalBody']/table[1]/tbody/tr[4]/td[1]")
-            # lastUpdate = game.xpath("//*[@id='generalBody']/table[1]/tbody/tr[4]/td[1]")
-            # chartScore = game.xpath("//*[@id='generalBody']/table[1]/tbody/tr[4]/td[1]")
-            # criticScore = game.xpath("//*[@id='generalBody']/table[1]/tbody/tr[4]/td[1]")
-            # userScore = game.xpath("//*[@id='generalBody']/table[1]/tbody/tr[4]/td[1]")
-            # releasedDate = game.xpath("//*[@id='generalBody']/table[1]/tbody/tr[4]/td[1]")
-        yield {
-            'Row':rows
-        }
-            # yield {
-            #     'Position': pos,
-            #     # 'Game': gameName,
-            #     # 'Console': console,
-            #     # 'Publisher': publisher,
-            #     # 'Total Shipped': totalShipped,
-            #     # 'Total Sales': totalSales,
-            #     # 'NA Sales': naSales,
-            #     # 'PAL Sales': palSales,
-            #     # 'Japan Sales': jpSales,
-            #     # 'Other Sales': otherSales,
-            #     # 'Release Date': releaseDate,
-            #     # 'Last Update': lastUpdate,
-            #     # 'VGChartz Score': chartScore,
-            #     # 'Critic Score': criticScore,
-            #     # 'User Score': userScore,
-            #     # 'Release Date': releasedDate,
-            # }
+        rows = response.xpath('//*[@id="generalBody"]/table[1]/tr')
+        for row in rows:
+            pos = row.xpath('.//td[1]/text()').get()
+            gameName = row.xpath('.//td[3]/a/text()').get()
+            console = row.xpath('.//td[4]/img/@alt').get()
+            publisher = row.xpath('.//td[5]/text()').get()
+            developer = row.xpath('.//td[6]/text()').get()
+            vgChartzScore = row.xpath('.//td[7]/text()').get()
+            criticScore = row.xpath('.//td[8]/text()').get()
+            userScore = row.xpath('.//td[9]/text()').get()
+            totalShipped = row.xpath('.//td[10]/text()').get()
+            totalSales = row.xpath('.//td[11]/text()').get()
+            naSales = row.xpath('.//td[12]/text()').get()
+            palSales = row.xpath('.//td[13]/text()').get()
+            jpSales = row.xpath('.//td[14]/text()').get()
+            otherSales = row.xpath('.//td[15]/text()').get()
+            releasedDate = row.xpath('.//td[16]/text()').get()
+            lastUpdate = row.xpath('.//td[17]/text()').get()
+            yield {
+                'Position': pos,
+                'Game Name': gameName,
+                'Console': console,
+                'Publisher': publisher,
+                'Developer': developer,
+                'VGChartz Score': vgChartzScore,
+                'Critic Score': criticScore,
+                'User Score': userScore,
+                'Total Shipped': totalShipped,
+                'Total Sales': totalSales,
+                'NA Sales': naSales,
+                'PAL Sales': palSales,
+                'Japan Sales': jpSales,
+                'Other Sales': otherSales,
+                'Release Date': releasedDate,
+                'Last Update': lastUpdate,
+            }
